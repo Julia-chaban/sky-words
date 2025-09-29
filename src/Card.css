@@ -1,0 +1,55 @@
+.card {
+    background: #242424;
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid transparent;
+    transition: border-color 0.25s;
+}
+
+.card:hover {
+    border-color: #646cff;
+}
+
+.card__title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.87);
+}
+
+.card__description {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+.card__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card__date {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
+}
+
+.card__actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.card__edit,
+.card__delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: background-color 0.25s;
+}
+
+.card__edit:hover,
+.card__delete:hover {
+    background-color: rgba(100, 108, 255, 0.1);
+}
