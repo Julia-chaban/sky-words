@@ -1,28 +1,23 @@
-import "./Column.css";
 import Card from "./Card";
 
-function Column({ title, color }) {
-  const cards = [
-    { id: 1, title: "Задача 1", description: "Описание задачи 1" },
-    { id: 2, title: "Задача 2", description: "Описание задачи 2" },
-  ];
+function Column({ title, cardsCount }) {
+  const themes = ["_orange", "_green", "_purple"];
 
   return (
-    <div className={`column column--${color}`}>
-      <div className="column__header">
-        <h3 className="column__title">{title}</h3>
-        <span className="column__count">{cards.length}</span>
+    <div className="main__column column">
+      <div className="column__title">
+        <p>{title}</p>
       </div>
-      <div className="column__cards">
-        {cards.map((card) => (
+      <div className="cards">
+        {Array.from({ length: cardsCount }).map((_, index) => (
           <Card
-            key={card.id}
-            title={card.title}
-            description={card.description}
+            key={index}
+            theme={themes[index % themes.length]}
+            title="Название задачи"
+            date="30.10.23"
           />
         ))}
       </div>
-      <button className="column__add-btn">+ Добавить карточку</button>
     </div>
   );
 }
