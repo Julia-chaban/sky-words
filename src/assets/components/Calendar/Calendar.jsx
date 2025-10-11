@@ -1,4 +1,4 @@
-import "./Calendar.css";
+import "./Calendar/Calendar.css";
 
 function Calendar() {
   return <div className="calendar">{/* содержимое календаря */}</div>;

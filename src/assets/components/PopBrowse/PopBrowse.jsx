@@ -1,14 +1,14 @@
-import "./PopUser.css";
+import "./PopBrowse.css";
 
-function PopUser({ isOpen, onClose }) {
+function PopBrowse({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="popup popup-user">
+    <div className="popup popup-browse">
       <div className="popup__overlay" onClick={onClose}></div>
       <div className="popup__content">
-        <h2 className="popup__title">Профиль пользователя</h2>
-        {/* содержимое попапа */}
+        <h2 className="popup__title">Просмотр задачи</h2>
+        {}
         <button className="popup__close" onClick={onClose}>
           ×
         </button>
@@ -17,4 +17,4 @@ function PopUser({ isOpen, onClose }) {
   );
 }
 
-export default PopUser;
+export default PopBrowse;
