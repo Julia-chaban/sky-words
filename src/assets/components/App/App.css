@@ -1206,6 +1206,17 @@ body {
   }
 }
 
+/* Стиль для текста загрузки */
+.loading-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  color: #94A6BE;
+  font-size: 18px;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+
 @media only screen and (max-width: 375px) {
   .pop-exit__block {
     padding: 50px 20px;
