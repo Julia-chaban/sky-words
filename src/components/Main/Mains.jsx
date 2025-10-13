@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import Column from "../Column/Column.jsx";
+import "./Main.css";
+import Column from "../Column/Column";
 import { cardsData } from "../../data.js";
 
 function Main() {
@@ -7,6 +8,7 @@ function Main() {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
+    // Имитация загрузки данных
     const timer = setTimeout(() => {
       setCards(cardsData);
       setIsLoading(false);

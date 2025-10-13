@@ -1,4 +1,5 @@
-import Card from "../Card/Card.jsx";
+import "./Column.css";
+import Card from "../Card/Card";
 
 function Column({ title, cards }) {
   return (
@@ -10,9 +11,10 @@ function Column({ title, cards }) {
         {cards.map((card) => (
           <Card
             key={card.id}
-            topic={card.topic}
             title={card.title}
+            theme={card.theme}
             date={card.date}
+            topic={card.topic}
           />
         ))}
       </div>

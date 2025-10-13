@@ -1,25 +1,12 @@
-function Card({ topic, title, date }) {
-  const getThemeClass = (topic) => {
-    switch (topic) {
-      case "Web Design":
-        return "_orange";
-      case "Research":
-        return "_green";
-      case "Copywriting":
-        return "_purple";
-      default:
-        return "_orange";
-    }
-  };
+import "./Card.css";
 
-  const themeClass = getThemeClass(topic);
-
+function Card({ title, theme, date, topic }) {
   return (
     <div className="cards__item">
       <div className="cards__card card">
         <div className="card__group">
-          <div className={`card__theme ${themeClass}`}>
-            <p className={themeClass}>{topic}</p>
+          <div className={`card__theme ${theme}`}>
+            <p className={theme}>{topic}</p>
           </div>
           <a href="#popBrowse" target="_self">
             <div className="card__btn">
