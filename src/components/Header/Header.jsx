@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import "./Header.css";
 
 function Header() {
@@ -12,14 +13,15 @@ function Header() {
     <header className="header">
       <div className="container">
         <div className="header__block">
-          <div className="header__logo _dark">
-            <a href="" target="_self">
-              <img src="/images/logo_dark.png" alt="logo" />
-            </a>
+          {/* Показываем только светлый логотип */}
+          <div className="header__logo">
+            <Link to="/">
+              <img src="/images/logo.png" alt="Sky Words" />
+            </Link>
           </div>
           <nav className="header__nav">
-            <button className="header__btn-main-new _hover01" id="btnMainNew">
-              <a href="#popNewCard">Создать новую задачу</a>
+            <button className="header__btn-main-new _hover01">
+              Создать новую задачу
             </button>
             <button className="header__user _hover02" onClick={handleUserClick}>
               Ivan Ivanov
@@ -35,7 +37,7 @@ function Header() {
                 <input type="checkbox" className="checkbox" name="checkbox" />
               </div>
               <button type="button" className="_hover03">
-                <a href="#popExit">Выйти</a>
+                <Link to="/signin">Выйти</Link>
               </button>
             </div>
           </nav>
