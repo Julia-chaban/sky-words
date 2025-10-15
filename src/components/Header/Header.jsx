@@ -1,6 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Header.css";
+import {
+  HeaderWrapper,
+  HeaderContainer,
+  HeaderBlock,
+  HeaderLogo,
+  HeaderNav,
+  HeaderButton,
+  UserButton,
+  UserPopup,
+  UserName,
+  UserEmail,
+  ThemeToggle,
+  LogoutButton,
+} from "./Header.styled";
 
 function Header() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -10,40 +23,32 @@ function Header() {
   };
 
   return (
-    <header className="header">
-      <div className="container">
-        <div className="header__block">
-          {/* Показываем только светлый логотип */}
-          <div className="header__logo">
+    <HeaderWrapper>
+      <HeaderContainer>
+        <HeaderBlock>
+          <HeaderLogo>
             <Link to="/">
               <img src="/images/logo.png" alt="Sky Words" />
             </Link>
-          </div>
-          <nav className="header__nav">
-            <button className="header__btn-main-new _hover01">
-              Создать новую задачу
-            </button>
-            <button className="header__user _hover02" onClick={handleUserClick}>
-              Ivan Ivanov
-            </button>
-            <div
-              className="header__pop-user-set pop-user-set"
-              style={{ display: isUserMenuOpen ? "block" : "none" }}
-            >
-              <p className="pop-user-set__name">Ivan Ivanov</p>
-              <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-              <div className="pop-user-set__theme">
+          </HeaderLogo>
+          <HeaderNav>
+            <HeaderButton>Создать новую задачу</HeaderButton>
+            <UserButton onClick={handleUserClick}>Ivan Ivanov</UserButton>
+            <UserPopup isOpen={isUserMenuOpen}>
+              <UserName>Ivan Ivanov</UserName>
+              <UserEmail>ivan.ivanov@gmail.com</UserEmail>
+              <ThemeToggle>
                 <p>Темная тема</p>
-                <input type="checkbox" className="checkbox" name="checkbox" />
-              </div>
-              <button type="button" className="_hover03">
+                <input type="checkbox" name="checkbox" />
+              </ThemeToggle>
+              <LogoutButton>
                 <Link to="/signin">Выйти</Link>
-              </button>
-            </div>
-          </nav>
-        </div>
-      </div>
-    </header>
+              </LogoutButton>
+            </UserPopup>
+          </HeaderNav>
+        </HeaderBlock>
+      </HeaderContainer>
+    </HeaderWrapper>
   );
 }
 

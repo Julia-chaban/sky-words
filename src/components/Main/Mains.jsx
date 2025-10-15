@@ -1,14 +1,19 @@
 import { useState, useEffect } from "react";
-import "./Main.css";
 import Column from "../Column/Column";
 import { cardsData } from "../../data.js";
+import {
+  MainWrapper,
+  MainContainer,
+  MainBlock,
+  MainContent,
+  LoadingMessage,
+} from "./Main.styled";
 
 function Main() {
   const [isLoading, setIsLoading] = useState(true);
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    // Имитация загрузки данных
     const timer = setTimeout(() => {
       setCards(cardsData);
       setIsLoading(false);
@@ -27,32 +32,21 @@ function Main() {
 
   if (isLoading) {
     return (
-      <main className="main">
-        <div className="container">
-          <div className="main__block">
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "50vh",
-                color: "#94A6BE",
-                fontSize: "18px",
-              }}
-            >
-              Данные загружаются...
-            </div>
-          </div>
-        </div>
-      </main>
+      <MainWrapper>
+        <MainContainer>
+          <MainBlock>
+            <LoadingMessage>Данные загружаются...</LoadingMessage>
+          </MainBlock>
+        </MainContainer>
+      </MainWrapper>
     );
   }
 
   return (
-    <main className="main">
-      <div className="container">
-        <div className="main__block">
-          <div className="main__content">
+    <MainWrapper>
+      <MainContainer>
+        <MainBlock>
+          <MainContent>
             {columns.map((column, index) => {
               const columnCards = cards.filter(
                 (card) => card.status === column.status
@@ -61,10 +55,10 @@ function Main() {
                 <Column key={index} title={column.title} cards={columnCards} />
               );
             })}
-          </div>
-        </div>
-      </div>
-    </main>
+          </MainContent>
+        </MainBlock>
+      </MainContainer>
+    </MainWrapper>
   );
 }
 
