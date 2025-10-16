@@ -1,4 +1,6 @@
-import Column from "./Column";
+import React from "react";
+import Column from "../Column/Column";
+import { MainWrapper, MainBlock, MainContent } from "./Main.styled";
 
 function Main() {
   const columns = [
@@ -10,10 +12,10 @@ function Main() {
   ];
 
   return (
-    <main className="main">
+    <MainWrapper>
       <div className="container">
-        <div className="main__block">
-          <div className="main__content">
+        <MainBlock>
+          <MainContent>
             {columns.map((column, index) => (
               <Column
                 key={index}
@@ -21,10 +23,10 @@ function Main() {
                 cardsCount={column.cards}
               />
             ))}
-          </div>
-        </div>
+          </MainContent>
+        </MainBlock>
       </div>
-    </main>
+    </MainWrapper>
   );
 }
 

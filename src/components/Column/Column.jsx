@@ -1,14 +1,16 @@
-import Card from "./Card";
+import React from "react";
+import Card from "../Card/Card";
+import { MainColumn, ColumnTitle, Cards } from "./Column.styled";
 
 function Column({ title, cardsCount }) {
   const themes = ["_orange", "_green", "_purple"];
 
   return (
-    <div className="main__column column">
-      <div className="column__title">
+    <MainColumn className="column">
+      <ColumnTitle>
         <p>{title}</p>
-      </div>
-      <div className="cards">
+      </ColumnTitle>
+      <Cards>
         {Array.from({ length: cardsCount }).map((_, index) => (
           <Card
             key={index}
@@ -17,8 +19,8 @@ function Column({ title, cardsCount }) {
             date="30.10.23"
           />
         ))}
-      </div>
-    </div>
+      </Cards>
+    </MainColumn>
   );
 }
 
