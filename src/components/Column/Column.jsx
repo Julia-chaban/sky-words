@@ -1,24 +1,26 @@
+import React from "react";
 import Card from "../Card/Card";
-import { ColumnWrapper, ColumnTitle, CardsContainer } from "./Column.styled";
+import { MainColumn, ColumnTitle, Cards } from "./Column.styled";
 
-function Column({ title, cards }) {
+function Column({ title, cardsCount }) {
+  const themes = ["_orange", "_green", "_purple"];
+
   return (
-    <ColumnWrapper>
+    <MainColumn className="column">
       <ColumnTitle>
         <p>{title}</p>
       </ColumnTitle>
-      <CardsContainer>
-        {cards.map((card) => (
+      <Cards>
+        {Array.from({ length: cardsCount }).map((_, index) => (
           <Card
-            key={card.id}
-            title={card.title}
-            theme={card.theme}
-            date={card.date}
-            topic={card.topic}
+            key={index}
+            theme={themes[index % themes.length]}
+            title="Название задачи"
+            date="30.10.23"
           />
         ))}
-      </CardsContainer>
-    </ColumnWrapper>
+      </Cards>
+    </MainColumn>
   );
 }
 

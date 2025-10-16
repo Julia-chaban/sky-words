@@ -3,15 +3,7 @@ import styled from "styled-components";
 export const HeaderWrapper = styled.header`
   width: 100%;
   margin: 0 auto;
-  background-color: #ffffff;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-`;
-
-export const HeaderContainer = styled.div`
-  max-width: 1260px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 0 30px;
+  background-color: #20202c;
 `;
 
 export const HeaderBlock = styled.div`
@@ -29,7 +21,6 @@ export const HeaderBlock = styled.div`
 export const HeaderLogo = styled.div`
   img {
     width: 85px;
-    height: auto;
   }
 `;
 
@@ -39,7 +30,7 @@ export const HeaderNav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  position: relative;
 `;
 
 export const HeaderButton = styled.button`
@@ -52,8 +43,8 @@ export const HeaderButton = styled.button`
   font-size: 14px;
   line-height: 1;
   font-weight: 500;
+  margin-right: 20px;
   cursor: pointer;
-  transition: background-color 0.3s;
 
   &:hover {
     background-color: #33399b;
@@ -61,15 +52,11 @@ export const HeaderButton = styled.button`
 
   a {
     color: #ffffff;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    text-decoration: none;
   }
 `;
 
-export const UserButton = styled.button`
+export const HeaderUser = styled.div`
   height: 20px;
   display: flex;
   flex-wrap: nowrap;
@@ -77,25 +64,8 @@ export const UserButton = styled.button`
   justify-content: center;
   font-size: 14px;
   line-height: 20px;
-  color: #000000;
-  background: none;
-  border: none;
+  color: #ffffff;
   cursor: pointer;
-  padding: 0;
-  position: relative;
-
-  &::after {
-    content: "";
-    display: block;
-    width: 6px;
-    height: 6px;
-    border-radius: 1px;
-    border-left: 1.9px solid #000000;
-    border-bottom: 1.9px solid #000000;
-    transform: rotate(-45deg);
-    margin: -6px 0 0 5px;
-    padding: 0;
-  }
 
   &:hover {
     color: #33399b;
@@ -105,81 +75,17 @@ export const UserButton = styled.button`
       border-bottom-color: #33399b;
     }
   }
-`;
 
-export const UserPopup = styled.div`
-  display: ${(props) => (props.isOpen ? "block" : "none")};
-  position: absolute;
-  top: 61px;
-  right: 0;
-  width: 213px;
-  height: 205px;
-  border-radius: 10px;
-  border: 0.7px solid #d4dbe5;
-  background: #ffffff;
-  box-shadow: 0px 10px 39px 0px rgba(148, 166, 190, 0.4);
-  padding: 34px;
-  text-align: center;
-  z-index: 2;
-`;
-
-export const UserName = styled.p`
-  color: #000000;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 21px;
-  letter-spacing: -0.14px;
-  margin-bottom: 4px;
-`;
-
-export const UserEmail = styled.p`
-  color: #94a6be;
-  font-size: 14px;
-  line-height: 21px;
-  letter-spacing: -0.14px;
-  margin-bottom: 10px;
-`;
-
-export const ThemeToggle = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 30px;
-
-  p {
-    color: #000000;
-    font-size: 14px;
-    line-height: 21px;
-    letter-spacing: -0.14px;
-  }
-`;
-
-export const LogoutButton = styled.button`
-  width: 72px;
-  height: 30px;
-  background: transparent;
-  color: #565eef;
-  border-radius: 4px;
-  border: 1px solid #565eef;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s;
-
-  &:hover {
-    background-color: #565eef;
-    color: #ffffff;
-
-    a {
-      color: #ffffff;
-    }
-  }
-
-  a {
-    color: #565eef;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  &::after {
+    content: "";
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 1px;
+    border-left: 1.9px solid #ffffff;
+    border-bottom: 1.9px solid #ffffff;
+    transform: rotate(-45deg);
+    margin: -6px 0 0 5px;
+    padding: 0;
   }
 `;

@@ -11,30 +11,23 @@ const cardAnimation = keyframes`
   }
 `;
 
-export const CardItem = styled.div`
+export const CardsItem = styled.div`
   padding: 5px;
   animation-name: ${cardAnimation};
   animation-duration: 500ms;
   animation-timing-function: linear;
 `;
 
-export const CardWrapper = styled.div`
+export const CardsCard = styled.div`
   width: 220px;
   height: 130px;
-  background-color: #ffffff;
+  background-color: #20202c;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: stretch;
   padding: 15px 13px 19px;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
-  }
 `;
 
 export const CardGroup = styled.div`
@@ -60,7 +53,7 @@ export const CardTheme = styled.div`
       case "_purple":
         return "#9A48F1";
       default:
-        return "#94A6BE";
+        return "#FF6D00";
     }
   }};
 
@@ -77,7 +70,7 @@ export const CardTheme = styled.div`
         case "_purple":
           return "#E9D4FF";
         default:
-          return "#FFFFFF";
+          return "#FFE4C2";
       }
     }};
   }
@@ -100,31 +93,30 @@ export const CardButton = styled.div`
   }
 `;
 
+export const CardTitle = styled.h3`
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  color: #ffffff;
+  margin-bottom: 10px;
+`;
+
 export const CardContent = styled.div`
   height: 64px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  width: 100%;
-`;
-
-export const CardTitle = styled.h3`
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 18px;
-  color: #000000;
-  margin-bottom: 10px;
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 `;
 
 export const CardDate = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+
+  svg {
+    width: 13px;
+  }
 
   p {
     margin-left: 6px;

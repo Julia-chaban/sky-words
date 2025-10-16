@@ -1,53 +1,53 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import PopNewCard from "../popups/PopNewCard/PopNewCard";
+import PopUser from "../popups/PopUser/PopUser";
 import {
   HeaderWrapper,
-  HeaderContainer,
   HeaderBlock,
   HeaderLogo,
   HeaderNav,
   HeaderButton,
-  UserButton,
-  UserPopup,
-  UserName,
-  UserEmail,
-  ThemeToggle,
-  LogoutButton,
+  HeaderUser,
 } from "./Header.styled";
 
 function Header() {
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isUserPopupOpen, setIsUserPopupOpen] = useState(false);
 
-  const handleUserClick = () => {
-    setIsUserMenuOpen(!isUserMenuOpen);
+  const toggleUserPopup = () => {
+    setIsUserPopupOpen(!isUserPopupOpen);
+  };
+
+  const closeUserPopup = () => {
+    setIsUserPopupOpen(false);
+  };
+
+  const handleLogout = () => {
+    console.log("Пользователь вышел из системы");
+    // Здесь можно добавить логику выхода
+    closeUserPopup();
   };
 
   return (
     <HeaderWrapper>
-      <HeaderContainer>
+      <div className="container">
         <HeaderBlock>
           <HeaderLogo>
-            <Link to="/">
-              <img src="/images/logo.png" alt="Sky Words" />
-            </Link>
+            <a href="" target="_self">
+              <img src="/images/logo.png" alt="logo" />
+            </a>
           </HeaderLogo>
           <HeaderNav>
-            <HeaderButton>Создать новую задачу</HeaderButton>
-            <UserButton onClick={handleUserClick}>Ivan Ivanov</UserButton>
-            <UserPopup isOpen={isUserMenuOpen}>
-              <UserName>Ivan Ivanov</UserName>
-              <UserEmail>ivan.ivanov@gmail.com</UserEmail>
-              <ThemeToggle>
-                <p>Темная тема</p>
-                <input type="checkbox" name="checkbox" />
-              </ThemeToggle>
-              <LogoutButton>
-                <Link to="/signin">Выйти</Link>
-              </LogoutButton>
-            </UserPopup>
+            <PopNewCard />
+            <HeaderUser onClick={toggleUserPopup}>Ivan Ivanov</HeaderUser>
+
+            <PopUser
+              isOpen={isUserPopupOpen}
+              onClose={closeUserPopup}
+              onLogout={handleLogout}
+            />
           </HeaderNav>
         </HeaderBlock>
-      </HeaderContainer>
+      </div>
     </HeaderWrapper>
   );
 }
