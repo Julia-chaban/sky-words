@@ -1,5 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext.jsx";
 import {
   Wrapper,
   Container,
@@ -13,9 +14,16 @@ import {
 } from "./SignIn.styled";
 
 function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Форма входа отправлена");
+    login();
+    navigate("/");
   };
 
   return (
@@ -27,12 +35,25 @@ function SignIn() {
               <h2>Вход</h2>
             </ModalTitle>
             <Form onSubmit={handleSubmit}>
-              <Input type="text" name="login" placeholder="Эл. почта" first />
-              <Input type="password" name="password" placeholder="Пароль" />
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Эл. почта"
+                first
+                required
+              />
+              <Input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Пароль"
+                required
+              />
               <Button type="submit">Войти</Button>
               <FormGroup>
                 <p>Нужно зарегистрироваться?</p>
-                <Link to="/signup">Регистрируйтесь здесь</Link>
+                <Link to="/register">Регистрируйтесь здесь</Link>
               </FormGroup>
             </Form>
           </ModalBlock>

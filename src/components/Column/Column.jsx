@@ -1,4 +1,3 @@
-import React from "react";
 import Card from "../Card/Card";
 import { MainColumn, ColumnTitle, Cards } from "./Column.styled";
 
@@ -17,6 +16,7 @@ function Column({ title, cardsCount }) {
             theme={themes[index % themes.length]}
             title="Название задачи"
             date="30.10.23"
+            id={index + 1} // Добавляем ID для навигации
           />
         ))}
       </Cards>

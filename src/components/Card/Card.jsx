@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import PopBrowse from "../popups/PopBrowse/PopBrowse";
 import {
   CardsItem,
@@ -11,8 +12,9 @@ import {
   CardDate,
 } from "./Card.styled";
 
-function Card({ theme, title, date }) {
+function Card({ theme, title, date, id }) {
   const [isBrowseOpen, setIsBrowseOpen] = useState(false);
+  const navigate = useNavigate();
 
   const getThemeText = (themeClass) => {
     switch (themeClass) {
@@ -30,6 +32,10 @@ function Card({ theme, title, date }) {
   const openBrowse = () => setIsBrowseOpen(true);
   const closeBrowse = () => setIsBrowseOpen(false);
 
+  const handleCardClick = () => {
+    navigate(`/card/${id}`);
+  };
+
   return (
     <>
       <CardsItem>
@@ -45,9 +51,9 @@ function Card({ theme, title, date }) {
             </CardButton>
           </CardGroup>
           <CardContent>
-            <a href="" target="_blank">
-              <CardTitle>{title}</CardTitle>
-            </a>
+            <CardTitle onClick={handleCardClick} style={{ cursor: "pointer" }}>
+              {title}
+            </CardTitle>
             <CardDate>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -83,7 +89,12 @@ function Card({ theme, title, date }) {
         </CardsCard>
       </CardsItem>
 
-      <PopBrowse isOpen={isBrowseOpen} onClose={closeBrowse} title={title} />
+      <PopBrowse
+        isOpen={isBrowseOpen}
+        onClose={closeBrowse}
+        title={title}
+        cardId={id}
+      />
     </>
   );
 }

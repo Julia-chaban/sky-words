@@ -1,52 +1,85 @@
-import "./SignUp.css";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext.jsx";
+import {
+  Wrapper,
+  Container,
+  Modal,
+  ModalBlock,
+  ModalTitle,
+  Form,
+  Input,
+  Button,
+  FormGroup,
+} from "./SignUp.styled";
+
 function SignUp() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    email: "",
+    password: "",
+  });
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
     console.log("Форма регистрации отправлена");
+    login();
+    navigate("/");
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
-    <div className="wrapper">
-      <div className="container-signup">
-        <div className="modal">
-          <div className="modal__block">
-            <div className="modal__ttl">
+    <Wrapper>
+      <Container>
+        <Modal>
+          <ModalBlock>
+            <ModalTitle>
               <h2>Регистрация</h2>
-            </div>
-            <form className="modal__form-login" onSubmit={handleSubmit}>
-              <input
-                className="modal__input first-name"
+            </ModalTitle>
+            <Form onSubmit={handleSubmit}>
+              <Input
                 type="text"
-                name="first-name"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
                 placeholder="Имя"
+                required
               />
-              <input
-                className="modal__input login"
-                type="text"
-                name="login"
+              <Input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="Эл. почта"
+                required
               />
-              <input
-                className="modal__input password-first"
+              <Input
                 type="password"
                 name="password"
+                value={formData.password}
+                onChange={handleChange}
                 placeholder="Пароль"
+                required
               />
-              <button className="modal__btn-signup-ent _hover01" type="submit">
-                Зарегистрироваться
-              </button>
-              <div className="modal__form-group">
+              <Button type="submit">Зарегистрироваться</Button>
+              <FormGroup>
                 <p>
-                  Уже есть аккаунт? <Link to="/signin">Войдите здесь</Link>
+                  Уже есть аккаунт? <Link to="/login">Войдите здесь</Link>
                 </p>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+              </FormGroup>
+            </Form>
+          </ModalBlock>
+        </Modal>
+      </Container>
+    </Wrapper>
   );
 }
 
