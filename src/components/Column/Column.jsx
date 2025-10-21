@@ -16,7 +16,7 @@ function Column({ title, cardsCount }) {
             theme={themes[index % themes.length]}
             title="Название задачи"
             date="30.10.23"
-            id={index + 1} // Добавляем ID для навигации
+            id={index + 1}
           />
         ))}
       </Cards>

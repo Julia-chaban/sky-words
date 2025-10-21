@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext.jsx";
+import { useAuth } from "../../../context/AuthContext";
 import {
   Wrapper,
   Container,
@@ -22,8 +22,8 @@ function SignIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Форма входа отправлена");
-    login();
-    navigate("/");
+    login(); // Устанавливаем авторизацию
+    navigate("/"); // Перенаправляем на главную
   };
 
   return (

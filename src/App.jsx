@@ -1,15 +1,11 @@
 import "./App.css";
-import Header from "./components/Header/Header";
-import Main from "./components/Main/Main";
-import { AuthProvider } from "./context/AuthContext.jsx";
+import { AuthProvider } from "./context/AuthContext";
+import AppRoutes from "./AppRoutes";
 
 function App() {
   return (
     <AuthProvider>
-      <div className="wrapper">
-        <Header />
-        <Main />
-      </div>
+      <AppRoutes />
     </AuthProvider>
   );
 }
