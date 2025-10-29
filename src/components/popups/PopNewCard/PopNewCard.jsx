@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { tasksAPI } from "../../../services/tasksAPI";
 import {
   PopupWrapper,
   PopupContainer,
@@ -15,25 +16,67 @@ import {
   Subtitle,
 } from "./PopNewCard.styled";
 
-function PopNewCard() {
+function PopNewCard({ onTaskCreated }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  // Функция для открытия попапа
+  const [formData, setFormData] = useState({
+    title: "",
+    topic: "Research",
+    status: "Без статуса",
+    description: "",
+    date: new Date().toISOString().split("T")[0],
+  });
+
   const openPopup = () => setIsOpen(true);
 
-  // Функция для закрытия попапа
-  const closePopup = () => setIsOpen(false);
+  const closePopup = () => {
+    setIsOpen(false);
+    setError("");
+    setFormData({
+      title: "",
+      topic: "Research",
+      status: "Без статуса",
+      description: "",
+      date: new Date().toISOString().split("T")[0],
+    });
+  };
 
-  // Обработчик отправки формы
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Логика создания задачи
-    closePopup();
+    setLoading(true);
+    setError("");
+
+    try {
+      if (!formData.title.trim()) {
+        throw new Error("Название задачи обязательно");
+      }
+
+      await tasksAPI.createTask(formData);
+
+      closePopup();
+
+      // Уведомляем родительский компонент о создании задачи
+      if (onTaskCreated) {
+        onTaskCreated();
+      }
+    } catch (err) {
+      setError(err.message || "Ошибка создания задачи");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
-      {/* Кнопка для открытия попапа */}
       <button
         onClick={openPopup}
         style={{
@@ -52,7 +95,6 @@ function PopNewCard() {
         Создать новую задачу
       </button>
 
-      {/* Модальное окно */}
       <PopupWrapper isOpen={isOpen}>
         <PopupContainer onClick={closePopup}>
           <PopupBlock onClick={(e) => e.stopPropagation()}>
@@ -60,29 +102,102 @@ function PopNewCard() {
               <PopupTitle>Создание задачи</PopupTitle>
               <PopupClose onClick={closePopup}>✖</PopupClose>
               <PopupWrap>
+                {error && (
+                  <div
+                    style={{
+                      color: "red",
+                      backgroundColor: "#ffe6e6",
+                      padding: "10px",
+                      borderRadius: "4px",
+                      marginBottom: "15px",
+                    }}
+                  >
+                    {error}
+                  </div>
+                )}
+
                 <PopupForm id="formNewCard" onSubmit={handleSubmit}>
                   <FormBlock>
                     <Subtitle>Название задачи</Subtitle>
                     <FormInput
                       type="text"
-                      name="name"
-                      id="formTitle"
+                      name="title"
+                      value={formData.title}
+                      onChange={handleChange}
                       placeholder="Введите название задачи..."
                       autoFocus
                       required
+                      disabled={loading}
                     />
                   </FormBlock>
+
+                  <FormBlock>
+                    <Subtitle>Тема</Subtitle>
+                    <select
+                      name="topic"
+                      value={formData.topic}
+                      onChange={handleChange}
+                      style={{
+                        width: "100%",
+                        padding: "8px",
+                        border: "1px solid #ccc",
+                        borderRadius: "4px",
+                      }}
+                      disabled={loading}
+                    >
+                      <option value="Research">Research</option>
+                      <option value="Design">Design</option>
+                      <option value="Content">Content</option>
+                    </select>
+                  </FormBlock>
+
+                  <FormBlock>
+                    <Subtitle>Статус</Subtitle>
+                    <select
+                      name="status"
+                      value={formData.status}
+                      onChange={handleChange}
+                      style={{
+                        width: "100%",
+                        padding: "8px",
+                        border: "1px solid #ccc",
+                        borderRadius: "4px",
+                      }}
+                      disabled={loading}
+                    >
+                      <option value="Без статуса">Без статуса</option>
+                      <option value="Нужно сделать">Нужно сделать</option>
+                      <option value="В работе">В работе</option>
+                      <option value="Тестирование">Тестирование</option>
+                      <option value="Готово">Готово</option>
+                    </select>
+                  </FormBlock>
+
                   <FormBlock>
                     <Subtitle>Описание задачи</Subtitle>
                     <FormTextarea
-                      name="text"
-                      id="textArea"
+                      name="description"
+                      value={formData.description}
+                      onChange={handleChange}
                       placeholder="Введите описание задачи..."
                       required
+                      disabled={loading}
                     />
                   </FormBlock>
-                  <FormCreateButton type="submit">
-                    Создать задачу
+
+                  <FormBlock>
+                    <Subtitle>Дата</Subtitle>
+                    <FormInput
+                      type="date"
+                      name="date"
+                      value={formData.date}
+                      onChange={handleChange}
+                      disabled={loading}
+                    />
+                  </FormBlock>
+
+                  <FormCreateButton type="submit" disabled={loading}>
+                    {loading ? "Создание..." : "Создать задачу"}
                   </FormCreateButton>
                 </PopupForm>
               </PopupWrap>

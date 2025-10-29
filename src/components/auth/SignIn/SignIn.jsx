@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
+import { authAPI } from "../../../services/authAPI";
 import {
   Wrapper,
   Container,
@@ -11,19 +12,52 @@ import {
   Input,
   Button,
   FormGroup,
+  ErrorMessage,
 } from "./SignIn.styled";
 
 function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    login: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Форма входа отправлена");
-    login(); // Устанавливаем авторизацию
-    navigate("/"); // Перенаправляем на главную
+    setError("");
+    setLoading(true);
+
+    try {
+      // Валидация полей
+      if (!formData.login || !formData.password) {
+        throw new Error("Все поля обязательны для заполнения");
+      }
+
+      // API запрос
+      const response = await authAPI.login({
+        login: formData.login,
+        password: formData.password,
+      });
+
+      // Сохраняем авторизацию
+      login(response.token, response.user);
+      navigate("/"); // Перенаправляем на главную
+    } catch (err) {
+      setError(err.message || "Неверный логин или пароль");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -35,22 +69,30 @@ function SignIn() {
               <h2>Вход</h2>
             </ModalTitle>
             <Form onSubmit={handleSubmit}>
+              {error && <ErrorMessage>{error}</ErrorMessage>}
+
               <Input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Эл. почта"
-                first
+                type="text"
+                name="login"
+                value={formData.login}
+                onChange={handleChange}
+                placeholder="Логин"
+                style={{ marginBottom: "7px" }} // Заменяем first атрибут
                 required
+                disabled={loading}
               />
               <Input
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
                 placeholder="Пароль"
                 required
+                disabled={loading}
               />
-              <Button type="submit">Войти</Button>
+              <Button type="submit" disabled={loading}>
+                {loading ? "Загрузка..." : "Войти"}
+              </Button>
               <FormGroup>
                 <p>Нужно зарегистрироваться?</p>
                 <Link to="/register">Регистрируйтесь здесь</Link>

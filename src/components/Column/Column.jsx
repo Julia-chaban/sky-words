@@ -1,7 +1,7 @@
 import Card from "../Card/Card";
 import { MainColumn, ColumnTitle, Cards } from "./Column.styled";
 
-function Column({ title, cardsCount }) {
+function Column({ title, cardsCount, tasks = [] }) {
   const themes = ["_orange", "_green", "_purple"];
 
   return (
@@ -10,15 +10,27 @@ function Column({ title, cardsCount }) {
         <p>{title}</p>
       </ColumnTitle>
       <Cards>
-        {Array.from({ length: cardsCount }).map((_, index) => (
+        {tasks.map((task, index) => (
           <Card
-            key={index}
+            key={task._id || index}
             theme={themes[index % themes.length]}
-            title="Название задачи"
-            date="30.10.23"
-            id={index + 1}
+            title={task.title}
+            date={new Date(task.date).toLocaleDateString("ru-RU")}
+            id={task._id}
+            task={task}
           />
         ))}
+        {tasks.length === 0 &&
+          cardsCount > 0 &&
+          Array.from({ length: cardsCount }).map((_, index) => (
+            <Card
+              key={`placeholder-${index}`}
+              theme={themes[index % themes.length]}
+              title="Загрузка..."
+              date="..."
+              id={index}
+            />
+          ))}
       </Cards>
     </MainColumn>
   );

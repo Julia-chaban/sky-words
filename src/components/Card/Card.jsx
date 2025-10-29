@@ -12,11 +12,17 @@ import {
   CardDate,
 } from "./Card.styled";
 
-function Card({ theme, title, date, id }) {
+function Card({ theme, title, date, id, task }) {
   const [isBrowseOpen, setIsBrowseOpen] = useState(false);
   const navigate = useNavigate();
 
-  const getThemeText = (themeClass) => {
+  const getThemeText = (themeClass, taskTopic) => {
+    // Если есть реальная задача, используем ее topic
+    if (task && task.topic) {
+      return task.topic;
+    }
+
+    // Иначе используем старую логику
     switch (themeClass) {
       case "_orange":
         return "Web Design";
@@ -42,7 +48,7 @@ function Card({ theme, title, date, id }) {
         <CardsCard>
           <CardGroup>
             <CardTheme theme={theme}>
-              <p>{getThemeText(theme)}</p>
+              <p>{getThemeText(theme, task?.topic)}</p>
             </CardTheme>
             <CardButton onClick={openBrowse}>
               <div></div>
@@ -94,6 +100,7 @@ function Card({ theme, title, date, id }) {
         onClose={closeBrowse}
         title={title}
         cardId={id}
+        task={task}
       />
     </>
   );

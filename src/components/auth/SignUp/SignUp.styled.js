@@ -136,3 +136,15 @@ export const FormGroup = styled.div`
     text-decoration: underline;
   }
 `;
+
+export const ErrorMessage = styled.div`
+  color: #ff4d4f;
+  background: #fff2f0;
+  border: 1px solid #ffccc7;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
+`;

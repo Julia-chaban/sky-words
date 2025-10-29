@@ -11,9 +11,9 @@ import {
   HeaderUser,
 } from "./Header.styled";
 
-function Header() {
+function Header({ onTaskCreated, taskCount = 0 }) {
   const [isUserPopupOpen, setIsUserPopupOpen] = useState(false);
-  const { isAuth, logout } = useAuth();
+  const { isAuth, user, logout } = useAuth();
   const navigate = useNavigate();
 
   const toggleUserPopup = () => {
@@ -44,13 +44,17 @@ function Header() {
           <HeaderNav>
             {isAuth ? (
               <>
-                <PopNewCard />
-                <HeaderUser onClick={toggleUserPopup}>Ivan Ivanov</HeaderUser>
+                <PopNewCard onTaskCreated={onTaskCreated} />
+                <HeaderUser onClick={toggleUserPopup}>
+                  {user?.name || "Пользователь"}
+                </HeaderUser>
 
                 <PopUser
                   isOpen={isUserPopupOpen}
                   onClose={closeUserPopup}
                   onLogout={handleLogout}
+                  user={user}
+                  taskCount={taskCount}
                 />
               </>
             ) : (

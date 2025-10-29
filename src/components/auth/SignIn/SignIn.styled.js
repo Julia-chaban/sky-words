@@ -76,7 +76,6 @@ export const Input = styled.input`
   padding: 10px 8px;
   background-color: #ffffff;
   color: #000000;
-  margin-bottom: ${(props) => (props.first ? "7px" : "0")};
 
   &::placeholder {
     font-family: "Roboto", sans-serif;
@@ -131,4 +130,15 @@ export const FormGroup = styled.div`
   a {
     text-decoration: underline;
   }
+`;
+export const ErrorMessage = styled.div`
+  color: #ff4d4f;
+  background: #fff2f0;
+  border: 1px solid #ffccc7;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
 `;
