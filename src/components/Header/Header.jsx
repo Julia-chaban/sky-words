@@ -11,7 +11,7 @@ import {
   HeaderUser,
 } from "./Header.styled";
 
-function Header({ onTaskCreated, taskCount = 0 }) {
+function Header({ onTaskCreated }) {
   const [isUserPopupOpen, setIsUserPopupOpen] = useState(false);
   const { isAuth, user, logout } = useAuth();
   const navigate = useNavigate();
@@ -54,7 +54,6 @@ function Header({ onTaskCreated, taskCount = 0 }) {
                   onClose={closeUserPopup}
                   onLogout={handleLogout}
                   user={user}
-                  taskCount={taskCount}
                 />
               </>
             ) : (

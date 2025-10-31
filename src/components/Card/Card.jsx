@@ -17,12 +17,10 @@ function Card({ theme, title, date, id, task }) {
   const navigate = useNavigate();
 
   const getThemeText = (themeClass, taskTopic) => {
-    // Если есть реальная задача, используем ее topic
     if (task && task.topic) {
       return task.topic;
     }
 
-    // Иначе используем старую логику
     switch (themeClass) {
       case "_orange":
         return "Web Design";

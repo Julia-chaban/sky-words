@@ -12,7 +12,6 @@ import {
   Input,
   Button,
   FormGroup,
-  ErrorMessage,
 } from "./SignIn.styled";
 
 function SignIn() {
@@ -39,20 +38,18 @@ function SignIn() {
     setLoading(true);
 
     try {
-      // Валидация полей
       if (!formData.login || !formData.password) {
         throw new Error("Все поля обязательны для заполнения");
       }
 
-      // API запрос
-      const response = await authAPI.login({
-        login: formData.login,
-        password: formData.password,
-      });
+      const response = await authAPI.login(formData);
 
-      // Сохраняем авторизацию
-      login(response.token, response.user);
-      navigate("/"); // Перенаправляем на главную
+      if (!response.user || !response.user.token) {
+        throw new Error("Неверный ответ от сервера");
+      }
+
+      login(response.user.token, response.user);
+      navigate("/");
     } catch (err) {
       setError(err.message || "Неверный логин или пароль");
     } finally {
@@ -69,7 +66,22 @@ function SignIn() {
               <h2>Вход</h2>
             </ModalTitle>
             <Form onSubmit={handleSubmit}>
-              {error && <ErrorMessage>{error}</ErrorMessage>}
+              {error && (
+                <div
+                  style={{
+                    color: "#ff4d4f",
+                    background: "#fff2f0",
+                    border: "1px solid #ffccc7",
+                    padding: "8px 12px",
+                    borderRadius: "4px",
+                    marginBottom: "16px",
+                    fontSize: "14px",
+                    textAlign: "center",
+                  }}
+                >
+                  {error}
+                </div>
+              )}
 
               <Input
                 type="text"
@@ -77,7 +89,7 @@ function SignIn() {
                 value={formData.login}
                 onChange={handleChange}
                 placeholder="Логин"
-                style={{ marginBottom: "7px" }} // Заменяем first атрибут
+                style={{ marginBottom: "7px" }}
                 required
                 disabled={loading}
               />

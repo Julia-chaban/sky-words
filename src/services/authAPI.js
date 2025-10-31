@@ -1,7 +1,6 @@
 import api from "./api";
 
 export const authAPI = {
-  // Регистрация
   register: async (userData) => {
     try {
       const response = await api.post("/user", {
@@ -15,10 +14,9 @@ export const authAPI = {
     }
   },
 
-  // Авторизация
   login: async (credentials) => {
     try {
-      const response = await api.post("/login", {
+      const response = await api.post("/user/login", {
         login: credentials.login,
         password: credentials.password,
       });

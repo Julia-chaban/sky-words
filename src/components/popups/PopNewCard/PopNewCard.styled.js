@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const PopupWrapper = styled.div`
-  display: ${(props) => (props.isOpen ? "block" : "none")};
   width: 100%;
   min-width: 375px;
   height: 100%;

@@ -12,7 +12,6 @@ import {
   Input,
   Button,
   FormGroup,
-  ErrorMessage,
 } from "./SignUp.styled";
 
 function SignUp() {
@@ -33,7 +32,6 @@ function SignUp() {
     setLoading(true);
 
     try {
-      // Валидация полей
       if (!formData.name || !formData.login || !formData.password) {
         throw new Error("Все поля обязательны для заполнения");
       }
@@ -42,12 +40,14 @@ function SignUp() {
         throw new Error("Пароль должен содержать минимум 6 символов");
       }
 
-      // API запрос
       const response = await authAPI.register(formData);
 
-      // Автоматически логиним пользователя после регистрации
-      login(response.token, response.user);
-      navigate("/"); // Перенаправляем на главную
+      if (!response.user || !response.user.token) {
+        throw new Error("Неверный ответ от сервера");
+      }
+
+      login(response.user.token, response.user);
+      navigate("/");
     } catch (err) {
       setError(err.message || "Произошла ошибка при регистрации");
     } finally {
@@ -71,7 +71,22 @@ function SignUp() {
               <h2>Регистрация</h2>
             </ModalTitle>
             <Form onSubmit={handleSubmit}>
-              {error && <ErrorMessage>{error}</ErrorMessage>}
+              {error && (
+                <div
+                  style={{
+                    color: "#ff4d4f",
+                    background: "#fff2f0",
+                    border: "1px solid #ffccc7",
+                    padding: "8px 12px",
+                    borderRadius: "4px",
+                    marginBottom: "16px",
+                    fontSize: "14px",
+                    textAlign: "center",
+                  }}
+                >
+                  {error}
+                </div>
+              )}
 
               <Input
                 type="text"

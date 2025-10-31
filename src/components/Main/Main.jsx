@@ -18,11 +18,7 @@ function Main({ tasks = [], loading = false, error = null }) {
           <MainBlock>
             <MainContent>
               {statuses.map((status, index) => (
-                <Column
-                  key={index}
-                  title={status}
-                  cardsCount={3} // Показываем плейсхолдеры при загрузке
-                />
+                <Column key={index} title={status} cardsCount={3} />
               ))}
             </MainContent>
           </MainBlock>

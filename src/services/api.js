@@ -5,7 +5,7 @@ const API_URL = "https://wedev-api.sky.pro/api";
 const api = axios.create({
   baseURL: API_URL,
   headers: {
-    // "Content-Type": "application/json",
+    "Content-Type": "",
   },
 });
 
@@ -17,9 +17,7 @@ api.interceptors.request.use(
     }
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 api.interceptors.response.use(

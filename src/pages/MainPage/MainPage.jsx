@@ -1,12 +1,12 @@
 import Header from "../../components/Header/Header";
 import Main from "../../components/Main/Main";
 import { MainWrapper } from "./MainPage.styled";
-import { useAuth } from "../../context/AuthContext.jsx";
+import { useAuth } from "../../context/AuthContext";
 import { useState, useEffect } from "react";
 import { tasksAPI } from "../../services/tasksAPI";
 
 function MainPage() {
-  const { user } = useAuth();
+  const { user, isAuth } = useAuth();
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -25,8 +25,10 @@ function MainPage() {
   };
 
   useEffect(() => {
-    loadTasks();
-  }, []);
+    if (isAuth) {
+      loadTasks();
+    }
+  }, [isAuth]);
 
   return (
     <MainWrapper>
