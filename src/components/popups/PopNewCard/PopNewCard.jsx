@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { tasksAPI } from "../../../services/tasksAPI";
+import { useTasks } from "../../../context/TaskContext";
 import {
   PopupWrapper,
   PopupContainer,
@@ -20,6 +20,7 @@ function PopNewCard({ onTaskCreated }) {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const { createTask } = useTasks();
 
   const [formData, setFormData] = useState({
     title: "",
@@ -60,7 +61,7 @@ function PopNewCard({ onTaskCreated }) {
         throw new Error("Название задачи обязательно");
       }
 
-      await tasksAPI.createTask(formData);
+      await createTask(formData);
       closePopup();
 
       if (onTaskCreated) {
