@@ -1,5 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
+import { authAPI } from "../../../services/authAPI";
 import {
   Wrapper,
   Container,
@@ -13,9 +15,46 @@ import {
 } from "./SignIn.styled";
 
 function SignIn() {
-  const handleSubmit = (e) => {
+  const [formData, setFormData] = useState({
+    login: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Форма входа отправлена");
+    setError("");
+    setLoading(true);
+
+    try {
+      if (!formData.login || !formData.password) {
+        throw new Error("Все поля обязательны для заполнения");
+      }
+
+      const response = await authAPI.login(formData);
+
+      if (!response.user || !response.user.token) {
+        throw new Error("Неверный ответ от сервера");
+      }
+
+      login(response.user.token, response.user);
+      navigate("/");
+    } catch (err) {
+      setError(err.message || "Неверный логин или пароль");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -27,12 +66,48 @@ function SignIn() {
               <h2>Вход</h2>
             </ModalTitle>
             <Form onSubmit={handleSubmit}>
-              <Input type="text" name="login" placeholder="Эл. почта" first />
-              <Input type="password" name="password" placeholder="Пароль" />
-              <Button type="submit">Войти</Button>
+              {error && (
+                <div
+                  style={{
+                    color: "#ff4d4f",
+                    background: "#fff2f0",
+                    border: "1px solid #ffccc7",
+                    padding: "8px 12px",
+                    borderRadius: "4px",
+                    marginBottom: "16px",
+                    fontSize: "14px",
+                    textAlign: "center",
+                  }}
+                >
+                  {error}
+                </div>
+              )}
+
+              <Input
+                type="text"
+                name="login"
+                value={formData.login}
+                onChange={handleChange}
+                placeholder="Логин"
+                style={{ marginBottom: "7px" }}
+                required
+                disabled={loading}
+              />
+              <Input
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Пароль"
+                required
+                disabled={loading}
+              />
+              <Button type="submit" disabled={loading}>
+                {loading ? "Загрузка..." : "Войти"}
+              </Button>
               <FormGroup>
                 <p>Нужно зарегистрироваться?</p>
-                <Link to="/signup">Регистрируйтесь здесь</Link>
+                <Link to="/register">Регистрируйтесь здесь</Link>
               </FormGroup>
             </Form>
           </ModalBlock>
