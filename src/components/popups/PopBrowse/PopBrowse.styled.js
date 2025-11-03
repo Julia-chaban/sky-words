@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const PopupWrapper = styled.div`
-  display: ${(props) => (props.isOpen ? "block" : "none")};
   width: 100%;
   min-width: 375px;
   height: 100%;
@@ -9,7 +8,8 @@ export const PopupWrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1001;
+  z-index: 1000;
+  display: ${(props) => (props.$isOpen ? "block" : "none")};
 `;
 
 export const PopupContainer = styled.div`
@@ -30,10 +30,11 @@ export const PopupBlock = styled.div`
   background-color: #20202c;
   max-width: 630px;
   width: 100%;
-  padding: 40px 30px 38px;
+  padding: 40px 30px 48px;
   border-radius: 10px;
   border: 0.7px solid #4e5566;
   position: relative;
+  box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
 `;
 
 export const PopupContent = styled.div`
@@ -41,91 +42,26 @@ export const PopupContent = styled.div`
   text-align: left;
 `;
 
-export const PopupTopBlock = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 18px;
-`;
-
 export const PopupTitle = styled.h3`
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
+  margin-bottom: 20px;
   color: #ffffff;
 `;
 
-export const ThemeBadge = styled.div`
-  display: inline-block;
-  width: auto;
-  height: 30px;
-  padding: 8px 20px;
-  border-radius: 24px;
-  background-color: ${(props) => {
-    switch (props.theme) {
-      case "orange":
-        return "#FF6D00";
-      case "green":
-        return "#06B16E";
-      case "purple":
-        return "#9A48F1";
-      default:
-        return "#FF6D00";
-    }
-  }};
-  color: ${(props) => {
-    switch (props.theme) {
-      case "orange":
-        return "#FFE4C2";
-      case "green":
-        return "#B4FDD1";
-      case "purple":
-        return "#E9D4FF";
-      default:
-        return "#FFE4C2";
-    }
-  }};
-  opacity: 1;
-
-  p {
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 14px;
-    white-space: nowrap;
-  }
-`;
-
-export const StatusSection = styled.div`
-  margin-bottom: 11px;
-`;
-
-export const StatusTitle = styled.p`
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1;
-  margin-bottom: 14px;
-`;
-
-export const StatusThemes = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
-`;
-
-export const StatusTheme = styled.div`
-  border-radius: 24px;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+export const PopupClose = styled.button`
+  position: absolute;
+  top: 20px;
+  right: 30px;
   color: #94a6be;
-  padding: 11px 14px 10px;
-  margin-right: 7px;
-  margin-bottom: 7px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 20px;
 
-  p {
-    font-size: 14px;
-    line-height: 1;
-    letter-spacing: -0.14px;
+  &:hover {
+    color: #ffffff;
   }
 `;
 
@@ -145,20 +81,43 @@ export const PopupForm = styled.form`
 export const FormBlock = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 `;
 
-export const FormTextarea = styled.textarea`
-  max-width: 370px;
+export const FormInput = styled.input`
   width: 100%;
   outline: none;
   padding: 14px;
-  background: #151419;
+  background: transparent;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
   line-height: 1;
   letter-spacing: -0.14px;
-  margin-top: 14px;
+  margin: 10px 0;
+  color: #ffffff;
+
+  &::placeholder {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1px;
+    color: #94a6be;
+    letter-spacing: -0.14px;
+  }
+`;
+
+export const FormTextarea = styled.textarea`
+  width: 100%;
+  outline: none;
+  padding: 14px;
+  background: transparent;
+  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: -0.14px;
+  max-width: 370px;
+  margin-top: 10px;
   height: 188px;
   color: #ffffff;
   resize: vertical;
@@ -173,66 +132,63 @@ export const FormTextarea = styled.textarea`
   }
 `;
 
-export const PopupClose = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  color: #94a6be;
+export const FormButton = styled.button`
+  width: 132px;
+  height: 30px;
+  background-color: #565eef;
+  border-radius: 4px;
+  border: 0;
+  outline: none;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  color: #ffffff;
   cursor: pointer;
-  background: none;
-  border: none;
-  font-size: 20px;
+  margin-right: 10px;
 
   &:hover {
-    color: #ffffff;
+    background-color: #33399b;
+  }
+
+  &:disabled {
+    background-color: #94a6be;
+    cursor: not-allowed;
+  }
+`;
+
+export const DeleteButton = styled.button`
+  width: 132px;
+  height: 30px;
+  background-color: #ff6b6b;
+  border-radius: 4px;
+  border: 0;
+  outline: none;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  color: #ffffff;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ff5252;
+  }
+
+  &:disabled {
+    background-color: #94a6be;
+    cursor: not-allowed;
   }
 `;
 
 export const ButtonGroup = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-between;
-  width: 100%;
+  justify-content: flex-start;
+  margin-top: 20px;
 `;
 
-export const Button = styled.button`
-  height: 30px;
-  margin-bottom: 10px;
-  padding: 0 14px;
-  border-radius: 4px;
-  border: none;
-  outline: none;
+export const Subtitle = styled.p`
+  color: #fff;
   font-size: 14px;
-  cursor: pointer;
-
-  ${(props) =>
-    props.variant === "border" &&
-    `
-    border: 0.7px solid #FFFFFF;
-    background: transparent;
-    color: #FFFFFF;
-    
-    &:hover {
-      background-color: #565EEF;
-      color: #FFFFFF;
-      border-color: #565EEF;
-    }
-  `}
-
-  ${(props) =>
-    props.variant === "background" &&
-    `
-    background: #565EEF;
-    color: #FFFFFF;
-    
-    &:hover {
-      background-color: #33399b;
-    }
-  `}
-  
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 5px;
 `;

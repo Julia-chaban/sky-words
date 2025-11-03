@@ -9,6 +9,7 @@ export const PopupWrapper = styled.div`
   top: 0;
   left: 0;
   z-index: 1000;
+  display: ${(props) => (props.$isOpen ? "block" : "none")};
 `;
 
 export const PopupContainer = styled.div`

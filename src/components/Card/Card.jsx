@@ -33,6 +33,19 @@ function Card({ theme, title, date, id, task }) {
     }
   };
 
+  const formatDate = (dateString) => {
+    if (!dateString || dateString === "...") return dateString;
+    try {
+      const date = new Date(dateString);
+      const day = date.getDate().toString().padStart(2, "0");
+      const month = (date.getMonth() + 1).toString().padStart(2, "0");
+      const year = date.getFullYear().toString().slice(-2);
+      return `${day}.${month}.${year}`;
+    } catch (error) {
+      return dateString;
+    }
+  };
+
   const openBrowse = () => setIsBrowseOpen(true);
   const closeBrowse = () => setIsBrowseOpen(false);
 
@@ -45,7 +58,7 @@ function Card({ theme, title, date, id, task }) {
       <CardsItem>
         <CardsCard>
           <CardGroup>
-            <CardTheme theme={theme}>
+            <CardTheme className={theme}>
               <p>{getThemeText(theme, task?.topic)}</p>
             </CardTheme>
             <CardButton onClick={openBrowse}>
@@ -87,7 +100,7 @@ function Card({ theme, title, date, id, task }) {
                   </clipPath>
                 </defs>
               </svg>
-              <p>{date}</p>
+              <p>{formatDate(date)}</p>
             </CardDate>
           </CardContent>
         </CardsCard>

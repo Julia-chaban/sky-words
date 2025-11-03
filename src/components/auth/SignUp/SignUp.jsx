@@ -32,15 +32,31 @@ function SignUp() {
     setLoading(true);
 
     try {
-      if (!formData.name || !formData.login || !formData.password) {
+      if (
+        !formData.name.trim() ||
+        !formData.login.trim() ||
+        !formData.password.trim()
+      ) {
         throw new Error("Все поля обязательны для заполнения");
+      }
+
+      if (
+        formData.name.trim().length === 0 ||
+        formData.login.trim().length === 0 ||
+        formData.password.trim().length === 0
+      ) {
+        throw new Error("Поля не могут содержать только пробелы");
       }
 
       if (formData.password.length < 6) {
         throw new Error("Пароль должен содержать минимум 6 символов");
       }
 
-      const response = await authAPI.register(formData);
+      const response = await authAPI.register({
+        name: formData.name.trim(),
+        login: formData.login.trim(),
+        password: formData.password.trim(),
+      });
 
       if (!response.user || !response.user.token) {
         throw new Error("Неверный ответ от сервера");

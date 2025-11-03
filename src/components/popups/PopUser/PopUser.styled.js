@@ -1,61 +1,88 @@
 import styled from "styled-components";
 
 export const PopupWrapper = styled.div`
-  display: ${(props) => (props.isOpen ? "block" : "none")};
-  position: absolute;
-  top: 61px;
-  right: 0;
-  width: 213px;
-  height: 205px;
+  width: 100%;
+  height: 100%;
+  min-width: 375px;
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 7;
+  display: ${(props) => (props.$isOpen ? "block" : "none")};
+`;
+
+export const PopupContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+`;
+
+export const PopupBlock = styled.div`
+  display: block;
+  margin: 0 auto;
+  background-color: #ffffff;
+  max-width: 370px;
+  width: 100%;
+  padding: 20px;
   border-radius: 10px;
-  border: 0.7px solid #4e5566;
-  background: #202229;
-  box-shadow: 0px 10px 39px 0px rgba(148, 166, 190, 0.4);
-  padding: 34px;
+  border: 0.7px solid #d4dbe5;
+  position: relative;
+  box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
+`;
+
+export const PopupUser = styled.div`
+  display: block;
   text-align: center;
-  z-index: 1002;
 `;
 
 export const UserName = styled.p`
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 21px;
-  letter-spacing: -0.14px;
-  margin-bottom: 4px;
+  color: #000;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  letter-spacing: -0.6px;
+  margin-bottom: 5px;
 `;
 
-export const UserEmail = styled.p`
+export const UserMail = styled.p`
   color: #94a6be;
   font-size: 14px;
   line-height: 21px;
-  letter-spacing: -0.14px;
+  letter-spacing: -0.28px;
   margin-bottom: 10px;
 `;
 
-export const ThemeSection = styled.div`
+export const UserTheme = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 `;
 
-export const ThemeText = styled.p`
-  color: #ffffff;
+export const ThemeSubtitle = styled.p`
+  color: #000;
   font-size: 14px;
   line-height: 21px;
-  letter-spacing: -0.14px;
+  letter-spacing: -0.28px;
 `;
 
-export const ThemeToggle = styled.input.attrs({ type: "checkbox" })`
+export const ThemeCheckbox = styled.input`
   position: relative;
   width: 24px;
   height: 13px;
   border-radius: 100px;
   background: #eaeef6;
   outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
-  cursor: pointer;
 
   &::before {
     content: "";
@@ -65,7 +92,7 @@ export const ThemeToggle = styled.input.attrs({ type: "checkbox" })`
     width: 11px;
     height: 11px;
     border-radius: 50%;
-    background-color: #565eef;
+    background-color: #94a6be;
     transition: 0.5s;
   }
 
@@ -74,18 +101,17 @@ export const ThemeToggle = styled.input.attrs({ type: "checkbox" })`
   }
 `;
 
-export const LogoutButton = styled.button`
-  width: 72px;
-  height: 30px;
-  background: transparent;
-  color: #ffffff;
-  border-radius: 4px;
-  border: 1px solid #ffffff;
+export const PopupClose = styled.button`
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  color: #94a6be;
   cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 20px;
 
   &:hover {
-    background-color: #565eef;
-    color: #ffffff;
-    border-color: #565eef;
+    color: #000000;
   }
 `;

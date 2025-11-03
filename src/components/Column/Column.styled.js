@@ -8,7 +8,7 @@ export const MainColumn = styled.div`
   @media screen and (max-width: 1200px) {
     width: 100%;
     margin: 0 auto;
-    display: block;
+    margin-bottom: 20px;
   }
 `;
 
@@ -17,7 +17,7 @@ export const ColumnTitle = styled.div`
   margin: 15px 0;
 
   p {
-    color: #94a6be;
+    color: #ffffff;
     font-size: 14px;
     font-weight: 600;
     line-height: 1;
@@ -29,10 +29,4 @@ export const Cards = styled.div`
   width: 100%;
   display: block;
   position: relative;
-
-  @media screen and (max-width: 1200px) {
-    width: 100%;
-    display: flex;
-    overflow-y: auto;
-  }
 `;
