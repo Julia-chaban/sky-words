@@ -1,16 +1,152 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sky Words - Менеджер задач
+О проекте
+Sky Words - это современное веб-приложение для управления задачами (канбан-доска), разработанное на React. Приложение предоставляет удобный интерфейс для создания, редактирования и отслеживания задач по различным статусам.
 
-Currently, two official plugins are available:
+Основные возможности
+Система аутентификации
+Регистрация новых пользователей
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Авторизация с валидацией полей
 
-## React Compiler
+Защищенные маршруты для авторизованных пользователей
 
-The React Compiler is not enabled on this template. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Автоматический выход при истечении токена
 
-## Expanding the ESLint configuration
+Управление задачами
+Создание задач с названием, описанием, темой и датой
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Просмотр задач в канбан-доске с группировкой по статусам
+
+Редактирование существующих задач
+
+Удаление ненужных задач
+
+Статусы задач: "Без статуса", "Нужно сделать", "В работе", "Тестирование", "Готово"
+
+Интерфейс
+Темная тема с контрастными элементами
+
+Адаптивный дизайн для мобильных устройств
+
+Интуитивно понятный интерфейс
+
+Визуальные индикаторы загрузки и ошибок
+
+Технологический стек
+Frontend
+React 18 - основной фреймворк
+
+React Router DOM - навигация между страницами
+
+Styled Components - стилизация компонентов
+
+Context API - управление состоянием приложения
+
+Axios - HTTP-запросы к API
+
+Backend API
+REST API для работы с пользователями и задачами
+
+JWT-аутентификация
+
+CRUD операции для задач
+
+Структура проекта
+text
+src/
+├── components/          # React компоненты
+│   ├── auth/           # Компоненты авторизации
+│   ├── Header/         # Шапка приложения
+│   ├── Main/           # Основной контент
+│   ├── Column/         # Колонки канбан-доски
+│   ├── Card/           # Карточки задач
+│   ├── popups/         # Модальные окна
+│   └── ProtectedRoute/ # Защищенные маршруты
+├── context/            # React Context
+│   ├── AuthContext.jsx # Контекст авторизации
+│   └── TaskContext.jsx # Контекст задач
+├── pages/              # Страницы приложения
+│   ├── MainPage/       # Главная страница
+│   ├── LoginPage/      # Страница входа
+│   ├── RegisterPage/   # Страница регистрации
+│   └── NotFoundPage/   # Страница 404
+├── services/           # API сервисы
+│   ├── api.js         # Базовые настройки axios
+│   ├── authAPI.js     # API авторизации
+│   └── tasksAPI.js    # API задач
+└── App.jsx            # Корневой компонент
+Установка и запуск
+Предварительные требования
+Node.js 16+
+
+npm или yarn
+
+Установка
+text
+# Клонирование репозитория
+git clone <repository-url>
+cd sky-words
+
+# Установка зависимостей
+npm install
+
+# Запуск в режиме разработки
+npm run dev
+
+# Сборка для production
+npm run build
+API Endpoints
+Аутентификация
+POST /api/user - регистрация пользователя
+
+POST /api/user/login - авторизация пользователя
+
+Задачи
+GET /api/kanban - получение всех задач
+
+POST /api/kanban - создание новой задачи
+
+PUT /api/kanban/:id - обновление задачи
+
+DELETE /api/kanban/:id - удаление задачи
+
+Ключевые особенности
+Безопасность
+Валидация всех входных данных
+
+Защита от XSS и инъекций
+
+JWT токены с ограниченным временем жизни
+
+Производительность
+Ленивая загрузка компонентов
+
+Оптимизированные перерисовки
+
+Эффективное кэширование
+
+UX/UI
+Интуитивная навигация
+
+Визуальная обратная связь
+
+Адаптация под разные устройства
+
+Отладка и разработка
+Приложение включает встроенные инструменты отладки:
+
+Подробное логирование в консоли
+
+Визуальные индикаторы состояния
+
+Обработка и отображение ошибок
+
+Лицензия
+Этот проект создан в учебных целях.
+
+Разработчики
+Проект разработан в рамках обучения современным подходам к веб-разработке.
+
+Sky Words - Управляйте своими задачами эффективно!
+
