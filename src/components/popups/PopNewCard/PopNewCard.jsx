@@ -77,9 +77,11 @@ function PopNewCard({ onTaskCreated }) {
         throw new Error("Дата обязательна для заполнения");
       }
 
+      // Создаем задачу - контекст автоматически обновится
       await createTask(formData);
       closePopup();
 
+      // Вызываем callback если нужны дополнительные действия
       if (onTaskCreated) {
         onTaskCreated();
       }

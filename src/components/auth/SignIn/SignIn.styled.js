@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: #eaeef6;
+  background-color: #000000;
 `;
 
 export const Container = styled.div`
@@ -13,6 +13,7 @@ export const Container = styled.div`
   width: 100vw;
   min-height: 100vh;
   margin: 0 auto;
+  background-color: #000000;
 `;
 
 export const Modal = styled.div`
@@ -24,17 +25,18 @@ export const Modal = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #000000;
 `;
 
 export const ModalBlock = styled.div`
   display: block;
   margin: 0 auto;
-  background-color: #ffffff;
+  background-color: #20202c;
   max-width: 368px;
   width: 100%;
   padding: 50px 60px;
   border-radius: 10px;
-  border: 0.7px solid #d4dbe5;
+  border: 0.7px solid #4e5566;
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
 
   @media screen and (max-width: 375px) {
@@ -55,7 +57,7 @@ export const ModalTitle = styled.div`
     line-height: 30px;
     letter-spacing: -0.6px;
     margin-bottom: 20px;
-    color: #000000;
+    color: #ffffff;
   }
 `;
 
@@ -74,8 +76,9 @@ export const Input = styled.input`
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   outline: none;
   padding: 10px 8px;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #20202c;
+  color: #ffffff;
+  margin-bottom: 7px;
 
   &::placeholder {
     font-family: "Roboto", sans-serif;
@@ -120,7 +123,7 @@ export const FormGroup = styled.div`
 
   p,
   a {
-    color: rgba(148, 166, 190, 0.4);
+    color: #94a6be;
     font-size: 14px;
     font-weight: 400;
     line-height: 150%;
@@ -129,16 +132,6 @@ export const FormGroup = styled.div`
 
   a {
     text-decoration: underline;
+    color: #ffffff;
   }
-`;
-export const ErrorMessage = styled.div`
-  color: #ff4d4f;
-  background: #fff2f0;
-  border: 1px solid #ffccc7;
-  padding: 8px 12px;
-  border-radius: 4px;
-  margin-bottom: 16px;
-  font-size: 14px;
-  text-align: center;
-  width: 100%;
 `;

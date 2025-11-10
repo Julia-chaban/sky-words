@@ -15,7 +15,7 @@ import {
 function Header() {
   const [isUserPopupOpen, setIsUserPopupOpen] = useState(false);
   const { isAuth, user, logout } = useAuth();
-  const { tasks, loadTasks } = useTasks();
+  const { tasks } = useTasks(); // Убрали loadTasks, так как он не нужен
   const navigate = useNavigate();
 
   const toggleUserPopup = () => {
@@ -46,7 +46,8 @@ function Header() {
           <HeaderNav>
             {isAuth ? (
               <>
-                <PopNewCard onTaskCreated={loadTasks} />
+                {/* Убрали onTaskCreated, так как контекст обновляется автоматически */}
+                <PopNewCard />
                 <HeaderUser onClick={toggleUserPopup}>
                   {user?.name || "Пользователь"}
                 </HeaderUser>
