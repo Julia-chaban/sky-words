@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const MainWrapper = styled.main`
   width: 100%;
-  background-color: #151419;
+  background-color: #0000;
 `;
 
 export const MainBlock = styled.div`
@@ -14,6 +14,9 @@ export const MainBlock = styled.div`
 export const MainContent = styled.div`
   width: 100%;
   display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: space-between;
 
   @media screen and (max-width: 1200px) {
     display: block;

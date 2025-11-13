@@ -38,11 +38,21 @@ function SignIn() {
     setLoading(true);
 
     try {
-      if (!formData.login || !formData.password) {
+      if (!formData.login.trim() || !formData.password.trim()) {
         throw new Error("Все поля обязательны для заполнения");
       }
 
-      const response = await authAPI.login(formData);
+      if (
+        formData.login.trim().length === 0 ||
+        formData.password.trim().length === 0
+      ) {
+        throw new Error("Поля не могут содержать только пробелы");
+      }
+
+      const response = await authAPI.login({
+        login: formData.login.trim(),
+        password: formData.password.trim(),
+      });
 
       if (!response.user || !response.user.token) {
         throw new Error("Неверный ответ от сервера");

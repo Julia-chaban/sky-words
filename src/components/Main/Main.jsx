@@ -37,13 +37,38 @@ function Main({ tasks = [], loading = false, error = null }) {
                 style={{
                   textAlign: "center",
                   padding: "40px",
-                  color: "red",
-                  backgroundColor: "#ffe6e6",
+                  color: "#ffffff",
+                  backgroundColor: "#ff6b6b",
                   margin: "20px",
                   borderRadius: "8px",
                 }}
               >
                 Ошибка загрузки задач: {error}
+              </div>
+            </MainContent>
+          </MainBlock>
+        </div>
+      </MainWrapper>
+    );
+  }
+
+  const totalTasks = tasks.reduce((sum, task) => sum + (task ? 1 : 0), 0);
+
+  if (totalTasks === 0) {
+    return (
+      <MainWrapper>
+        <div className="container">
+          <MainBlock>
+            <MainContent>
+              <div
+                style={{
+                  textAlign: "center",
+                  padding: "40px",
+                  color: "#ffffff",
+                  fontSize: "16px",
+                }}
+              >
+                Задач пока нет. Создайте первую задачу!
               </div>
             </MainContent>
           </MainBlock>
@@ -59,7 +84,7 @@ function Main({ tasks = [], loading = false, error = null }) {
           <MainContent>
             {statuses.map((status, index) => {
               const statusTasks = tasks.filter(
-                (task) => task.status === status
+                (task) => task && task.status === status
               );
               return (
                 <Column

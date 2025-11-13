@@ -21,6 +21,7 @@ export const HeaderBlock = styled.div`
 export const HeaderLogo = styled.div`
   img {
     width: 85px;
+    filter: brightness(0) invert(1); /* Делает логотип белым */
   }
 `;
 
@@ -30,33 +31,9 @@ export const HeaderNav = styled.nav`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
 `;
 
-export const HeaderButton = styled.button`
-  width: 178px;
-  height: 30px;
-  border-radius: 4px;
-  background-color: #565eef;
-  color: #ffffff;
-  border: none;
-  font-size: 14px;
-  line-height: 1;
-  font-weight: 500;
-  margin-right: 20px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #33399b;
-  }
-
-  a {
-    color: #ffffff;
-    text-decoration: none;
-  }
-`;
-
-export const HeaderUser = styled.div`
+export const HeaderUser = styled.a`
   height: 20px;
   display: flex;
   flex-wrap: nowrap;
@@ -66,15 +43,6 @@ export const HeaderUser = styled.div`
   line-height: 20px;
   color: #ffffff;
   cursor: pointer;
-
-  &:hover {
-    color: #33399b;
-
-    &::after {
-      border-left-color: #33399b;
-      border-bottom-color: #33399b;
-    }
-  }
 
   &::after {
     content: "";

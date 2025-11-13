@@ -15,7 +15,7 @@ function Column({ title, cardsCount, tasks = [] }) {
             key={task._id || index}
             theme={themes[index % themes.length]}
             title={task.title}
-            date={new Date(task.date).toLocaleDateString("ru-RU")}
+            date={task.date}
             id={task._id}
             task={task}
           />

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext.jsx";
+import { useAuth } from "../../context/AuthContext";
+import { useTasks } from "../../context/TaskContext";
 import PopNewCard from "../popups/PopNewCard/PopNewCard";
 import PopUser from "../popups/PopUser/PopUser";
 import {
@@ -11,9 +12,10 @@ import {
   HeaderUser,
 } from "./Header.styled";
 
-function Header({ onTaskCreated }) {
+function Header() {
   const [isUserPopupOpen, setIsUserPopupOpen] = useState(false);
   const { isAuth, user, logout } = useAuth();
+  const { tasks } = useTasks(); // Убрали loadTasks, так как он не нужен
   const navigate = useNavigate();
 
   const toggleUserPopup = () => {
@@ -44,7 +46,8 @@ function Header({ onTaskCreated }) {
           <HeaderNav>
             {isAuth ? (
               <>
-                <PopNewCard onTaskCreated={onTaskCreated} />
+                {/* Убрали onTaskCreated, так как контекст обновляется автоматически */}
+                <PopNewCard />
                 <HeaderUser onClick={toggleUserPopup}>
                   {user?.name || "Пользователь"}
                 </HeaderUser>
@@ -54,6 +57,7 @@ function Header({ onTaskCreated }) {
                   onClose={closeUserPopup}
                   onLogout={handleLogout}
                   user={user}
+                  taskCount={tasks.length}
                 />
               </>
             ) : (
